@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-aq-f5(=%3+2#%to&qm4ynpv)4dp25%ctr2#glxma0=oetkj5d$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["okota.herokuapp.com", "127.0.0.1"]
 
@@ -122,12 +122,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-if DEBUG:
-        STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, 'static')
-       ]
-else:
+if not DEBUG:
         STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static/'),
+        ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -141,5 +141,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
-WHITENOISE_USE_FINDERS = True
